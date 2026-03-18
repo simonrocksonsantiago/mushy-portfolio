@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mushy — 3D Artist & Modeler</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Particle Canvas Background -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-text">MUSHY</span>
+        <span class="logo-dot">.</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-socials">
+        <a href="https://www.youtube.com/@Mushy3D" target="_blank" rel="noopener" aria-label="YouTube" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.377.504A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.504 9.376.504 9.376.504s7.505 0 9.377-.504a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://discord.gg/hSnGvBH2" target="_blank" rel="noopener" aria-label="Discord" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.947 2.418-2.157 2.418z"/></svg>
+        </a>
+        <a href="https://x.com/RocksonYeah" target="_blank" rel="noopener" aria-label="Twitter / X" class="social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <!-- Shadow Demon -->
+    <div class="demon-figure" aria-hidden="true">
+      <svg viewBox="0 0 400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body silhouette -->
+        <path d="M200 50 C160 50 130 80 120 120 L110 180 C100 200 80 220 70 260 L50 340 C40 380 45 420 60 460 L80 520 C90 560 85 600 80 640 L75 700 C72 740 80 780 100 820 L120 860 C130 880 160 900 200 900 C240 900 270 880 280 860 L300 820 C320 780 328 740 325 700 L320 640 C315 600 310 560 320 520 L340 460 C355 420 360 380 350 340 L330 260 C320 220 300 200 290 180 L280 120 C270 80 240 50 200 50Z" fill="url(#demonGrad)" opacity="0.6"/>
+        <!-- Horns -->
+        <path d="M140 120 C130 80 100 30 70 0 C90 20 120 60 130 100Z" fill="#0a0a0a" opacity="0.8"/>
+        <path d="M260 120 C270 80 300 30 330 0 C310 20 280 60 270 100Z" fill="#0a0a0a" opacity="0.8"/>
+        <!-- Spikes on shoulders -->
+        <path d="M70 260 L30 220 L60 270Z" fill="#0a0a0a" opacity="0.7"/>
+        <path d="M330 260 L370 220 L340 270Z" fill="#0a0a0a" opacity="0.7"/>
+        <path d="M55 300 L15 270 L50 310Z" fill="#0a0a0a" opacity="0.6"/>
+        <path d="M345 300 L385 270 L350 310Z" fill="#0a0a0a" opacity="0.6"/>
+        <!-- Eyes -->
+        <ellipse cx="170" cy="160" rx="12" ry="6" fill="#e63946" class="demon-eye">
+          <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="230" cy="160" rx="12" ry="6" fill="#e63946" class="demon-eye">
+          <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- Eye glow -->
+        <ellipse cx="170" cy="160" rx="20" ry="12" fill="#e63946" opacity="0.3" class="demon-eye-glow">
+          <animate attributeName="opacity" values="0.3;0.1;0.3" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="rx" values="20;28;20" dur="3s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="230" cy="160" rx="20" ry="12" fill="#e63946" opacity="0.3" class="demon-eye-glow">
+          <animate attributeName="opacity" values="0.3;0.1;0.3" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="rx" values="20;28;20" dur="3s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- Clawed hand reaching forward -->
+        <path d="M50 460 C30 450 10 430 0 400 L20 420 C15 400 5 370 0 350 L25 390 C22 370 18 340 15 320 L35 370 L40 440Z" fill="#0a0a0a" opacity="0.5"/>
+        <defs>
+          <linearGradient id="demonGrad" x1="200" y1="0" x2="200" y2="900" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#111111"/>
+            <stop offset="0.5" stop-color="#0a0a0a"/>
+            <stop offset="1" stop-color="transparent"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">3D Artist & Modeler</div>
+      <h1 class="hero-title">
+        <span class="title-line">I Bring Ideas</span>
+        <span class="title-line accent">To Life in 3D</span>
+      </h1>
+      <p class="hero-desc">
+        Crafting high-quality 3D models, builds, and rigs with precision and passion.
+        Turning your vision into stunning digital reality.
+      </p>
+      <div class="hero-cta">
+        <a href="#portfolio" class="btn btn-primary">View My Work</a>
+        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number" data-target="5">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-target="100">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Projects Completed</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" data-target="50">0</span><span class="stat-suffix">+</span>
+          <span class="stat-label">Happy Clients</span>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="mouse">
+        <div class="wheel"></div>
+      </div>
+      <span>Scroll Down</span>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">About Me</span>
+        <h2 class="section-title">The Artist Behind<br><span class="accent">The Models</span></h2>
+      </div>
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            Hey, I'm <strong>Mushy</strong> — a 3D artist who's been modeling since the pandemic hit.
+            What started as a creative escape quickly became a full-blown passion. Over the years,
+            I've honed my skills in <strong>3D modeling</strong>, <strong>building</strong>, and
+            <strong>rigging</strong>, delivering work that ranges from clean and simple to
+            intricate and high-detail.
+          </p>
+          <p>
+            I specialize in creating weapons, props, characters, armor sets, and full environments
+            with a focus on quality and detail. Whether you need a quick asset or a complex
+            masterpiece, I bring the same level of dedication to every project.
+          </p>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <div class="skill-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <span>3D Modeling</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <path d="M3 9h18M9 21V9"/>
+                </svg>
+              </div>
+              <span>Building</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="5" r="3"/><path d="M12 8v8"/><path d="M8 20l4-4 4 4"/><path d="M6 12l6 4 6-4"/>
+                </svg>
+              </div>
+              <span>Rigging</span>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </div>
+              <span>High Detail</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Sections -->
+  <section class="section portfolio-section" id="portfolio">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Portfolio</span>
+        <h2 class="section-title">Featured<br><span class="accent">Works</span></h2>
+      </div>
+
+      <!-- WEAPONS -->
+      <div class="category-block">
+        <div class="category-header">
+          <div class="category-line"></div>
+          <h3 class="category-title">Weapons</h3>
+          <span class="category-count">11</span>
+          <div class="category-line"></div>
+        </div>
+        <div class="portfolio-grid">
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/123.jpg" alt="Ornate Fantasy Glaive" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Ornate Fantasy Glaive</h3><p>Double-ended gold and blue polearm with dragon wing motifs</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/555.jpg" alt="Dragon Thorn Swords" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Dragon Thorn Swords</h3><p>Dark serpentine blades with glowing teal gemstones</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/111111111111111111111111.jpg" alt="Royal Excalibur" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Royal Excalibur</h3><p>Blue and red ceremonial sword with gold filigree and scabbard</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/666.jpg" alt="Sun Halberds" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Sun Halberds</h3><p>Golden polearms with sun crown motif and crescent blades</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/eeeeeeeeeeeeeeee.jpg" alt="Katana Pair" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Katana Pair</h3><p>Black and white katana set with golden vein textures and sheaths</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/111111.jpg" alt="Fantasy Spears" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Fantasy Spears</h3><p>Crossed medieval spears with ornate decorated metal heads</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/1111111.jpg" alt="Medieval Longswords" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Medieval Longswords</h3><p>Pair of realistic steel longswords with crossguards</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/33.jpg" alt="Battle Axes" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Double-Headed Battle Axes</h3><p>Realistic medieval double-bladed axes with wooden handles</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/StylizeAxeSculptedTextture.jpg" alt="Sculpted Battleaxes" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Sculpted Battleaxes</h3><p>Fantasy battleaxes with skull motifs and gold glowing accents</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/6666666.jpg" alt="Medieval Falchion" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Medieval Falchion</h3><p>Realistic short sword with leather-wrapped grip</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/image.png" alt="Golden Ceremonial Spear" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Weapon</span><h3>Golden Ceremonial Spear</h3><p>Stylized gold and ivory spear with skull guard detail</p></div></div></div></div>
+        </div>
+      </div>
+
+      <!-- CHARACTERS -->
+      <div class="category-block">
+        <div class="category-header">
+          <div class="category-line"></div>
+          <h3 class="category-title">Characters & Armor</h3>
+          <span class="category-count">15</span>
+          <div class="category-line"></div>
+        </div>
+        <div class="portfolio-grid">
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/adsfs.jpg" alt="Medieval Knight Armor Set" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Medieval Knight Set</h3><p>Four knight armor variants in silver and dark steel with horned helmets</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/BlueKNight.jpg" alt="Blue Royal Knight" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Blue Royal Knight</h3><p>Detailed blue and gold ornate knight armor with medallion pauldrons</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/ArmorWhite1Dark.jpg" alt="White-Gold Viking Armor" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>White-Gold Viking Armor</h3><p>Ornate white and gold knight armor with horned helmet and cape</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/kjljlkj.jpg" alt="Gold Winged Angelic Armor" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Angelic Winged Armor</h3><p>Gold and silver armor with winged helmet and ornate pauldrons</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/dadssd.jpg" alt="Red Demon Armor" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Red Demon Armor</h3><p>Aggressive red and black demonic armor with spikes and matching blade</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/adsadasdad.jpg" alt="Gold Knight" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Gold Knight</h3><p>Gold and white full-plate knight armor with cape</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/Redas.jpg" alt="Green Knight Variants" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Green Knight Variants</h3><p>Two green-toned knight armor sets with gold trim</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/112.png" alt="Anime Fighter" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Anime Fighter</h3><p>Muscular anime-style character with golden armor and gauntlets</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/55555555555555555.jpg" alt="Dark Symbiote" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Dark Symbiote</h3><p>Dark armored character with red glowing edges and veins</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/mushymush-45454.jpg" alt="Neon Demon Knight" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Neon Demon Knight</h3><p>Dark geometric armor with glowing neon accents and horned helmet</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/Tase.jpg" alt="Hooded Rogue" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Hooded Rogue</h3><p>Dark-cloaked assassin character with belted tunic</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/dddddddddddddddddd.jpg" alt="Tentacle Mimic" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Tentacle Mimic</h3><p>Horror-style tentacle monster wrapping around a character</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/888.jpg" alt="Chain Spike Armor" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Chain Spike Armor</h3><p>Dark spiked armor design sheet with chain flails</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/mushymush-test122.jpg" alt="Mech Boss Sculpt" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Mech Boss Sculpt</h3><p>Heavily armed robotic boss with mechanical appendages</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/wwwwwwwwwwww.jpg" alt="Cuphead Ballerina" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Character</span><h3>Cuphead Ballerina</h3><p>Stylized cup-headed character in ballet tutu</p></div></div></div></div>
+        </div>
+      </div>
+
+      <!-- PROPS -->
+      <div class="category-block">
+        <div class="category-header">
+          <div class="category-line"></div>
+          <h3 class="category-title">Props & Accessories</h3>
+          <span class="category-count">6</span>
+          <div class="category-line"></div>
+        </div>
+        <div class="portfolio-grid">
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/2121212z.jpg" alt="Anime Hair Collection" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Prop</span><h3>Anime Hair Collection</h3><p>Stylized hair models — pink braids, yellow layered, butterfly themed</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/ugb.jpg" alt="Cat Ear Headphones Hair" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Prop</span><h3>Cat Ear Headphones Hair</h3><p>Brown anime hair with pink cat-ear headphones</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/uuhhgg.jpg" alt="Blonde Spiky Hair" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Prop</span><h3>Blonde Spiky Hair</h3><p>Golden blonde layered anime hair from multiple angles</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/321.jpg" alt="Binoculars" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Prop</span><h3>Binoculars</h3><p>Dark-colored binoculars with orange rubber grip texturing</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/zzzzzzzzzzzzzzzzzzzzzz.jpg" alt="Anime Chibi Collection" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Prop</span><h3>Anime Chibi Collection</h3><p>Chibi anime character heads on display stands</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/mushymush-thumbna.jpg" alt="Neon Weapons Showcase" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Prop</span><h3>Neon Weapons Showcase</h3><p>Purple-lit render of sword, rifles, and pistols with glowing runes</p></div></div></div></div>
+        </div>
+      </div>
+
+      <!-- BUILDS -->
+      <div class="category-block">
+        <div class="category-header">
+          <div class="category-line"></div>
+          <h3 class="category-title">Builds & Environments</h3>
+          <span class="category-count">10</span>
+          <div class="category-line"></div>
+        </div>
+        <div class="portfolio-grid">
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/21x37-void1.jpg" alt="Void Realm" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Build</span><h3>Void Realm</h3><p>Dark fantasy environment with glowing purple energy and statues</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/21x37-void3.jpg" alt="Void Shrine" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Build</span><h3>Void Shrine</h3><p>Glowing totems and skull details in the Void Realm</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/55555555555555555555555555555.jpg" alt="White Palace" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Build</span><h3>White Palace</h3><p>Grand white and gold palace with towers and red carpet entrance</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/hhhhhhhhhhhhh.jpg" alt="Celestial City" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Build</span><h3>Celestial City</h3><p>White and gold palace in winter sky with icy trees</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/kkkkkkkkkkkkkkkkkkkkkkkkkk.jpg" alt="City Tycoon Night" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Build</span><h3>City Tycoon — Night</h3><p>Neon-lit skyscrapers and nighttime city skyline</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/llllllllllllllllllll.jpg" alt="City Tycoon Day" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Build</span><h3>City Tycoon — Day</h3><p>Wide aerial view of the stylized construction city</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/uuuuuuuuuuuuuuuuuuu.jpg" alt="Floating Islands" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Build</span><h3>Floating Islands</h3><p>Scenic floating islands with trees, water, and a giant statue</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/vvvvvvvvvvvvvvvvv.jpg" alt="Canyon Waterfall" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Build</span><h3>Canyon Waterfall</h3><p>Low-poly cliffs with waterfalls and lush greenery</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/Stylized Tree.jpg" alt="Stylized Forest" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Build</span><h3>Stylized Forest</h3><p>Dense colorful forest with blue, green, yellow, and white trees</p></div></div></div></div>
+          <div class="portfolio-item"><div class="portfolio-card"><div class="portfolio-img"><img src="assets/images/zzzzzzzzzzzzz.jpg" alt="Urban Game Lobby" loading="lazy"><div class="portfolio-overlay"><span class="overlay-tag">Build</span><h3>Urban Game Lobby</h3><p>Colorful cartoon-style urban street with shop fronts</p></div></div></div></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev">&#8249;</button>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext">&#8250;</button>
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="" alt="">
+      <div class="lightbox-info">
+        <h3 id="lightboxTitle"></h3>
+        <p id="lightboxDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services Section -->
+  <section class="section services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Services</span>
+        <h2 class="section-title">What I<br><span class="accent">Offer</span></h2>
+      </div>
+      <div class="services-grid">
+        <!-- 3D Modeling -->
+        <div class="service-card featured">
+          <div class="featured-badge">Popular</div>
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 class="service-title">3D Modeling</h3>
+          <p class="service-desc">Custom 3D models built from scratch — weapons, props, characters, armor sets, and more. From simple assets to highly detailed masterpieces.</p>
+          <div class="price-range">
+            <div class="price-tier">
+              <span class="tier-label">Simple</span>
+              <span class="tier-price">$10 – $50</span>
+            </div>
+            <div class="price-divider"></div>
+            <div class="price-tier">
+              <span class="tier-label">Complex / High Quality</span>
+              <span class="tier-price">$150 – $200</span>
+            </div>
+          </div>
+        </div>
+        <!-- Building -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M9 21V9"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Building</h3>
+          <p class="service-desc">Full environment builds and map creation. Detailed, immersive spaces built to your specifications per baseplate.</p>
+          <div class="price-range">
+            <div class="price-tier">
+              <span class="tier-label">Per Baseplate</span>
+              <span class="tier-price">$300</span>
+            </div>
+          </div>
+        </div>
+        <!-- Rigging -->
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="5" r="3"/><path d="M12 8v8"/><path d="M8 20l4-4 4 4"/><path d="M6 12l6 4 6-4"/>
+            </svg>
+          </div>
+          <h3 class="service-title">Rigging</h3>
+          <p class="service-desc">Professional rigging to bring your models to life with smooth, functional animations and bone structures.</p>
+          <div class="price-range">
+            <div class="price-tier">
+              <span class="tier-label">Simple Rig</span>
+              <span class="tier-price">$10</span>
+            </div>
+            <div class="price-divider"></div>
+            <div class="price-tier">
+              <span class="tier-label">Complex Rig</span>
+              <span class="tier-price">$35</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ / Rates Section -->
+  <section class="section faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">FAQ</span>
+        <h2 class="section-title">Rates &<br><span class="accent">Info</span></h2>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-card">
+          <h3 class="faq-question">What are your rates?</h3>
+          <p class="faq-answer">Rates depend on the scope of the project. Bulk commissions get a lower price, while one-time commissions are average rate. High quality / complex work costs <strong>$100 – $150 USD</strong> (or <strong>45k – 50k Robux</strong>).</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="faq-question">How fast is your turnaround?</h3>
+          <p class="faq-answer">My fastest bulk commission was <strong>50 weapons in 5 days</strong>. Realistically, turnaround is <strong>1 – 3 days</strong> for bulk work. Complex or single commissions may take longer depending on detail.</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="faq-question">How does payment work?</h3>
+          <p class="faq-answer">Usually <strong>50% upfront / 50% upon completion</strong>. For customers who prefer it, I also accept <strong>full payment upon completion</strong> — trust goes both ways.</p>
+        </div>
+        <div class="faq-card">
+          <h3 class="faq-question">What payment methods do you accept?</h3>
+          <p class="faq-answer">I accept <strong>PayPal</strong>, <strong>Wise</strong>, <strong>Gcash</strong>, and <strong>BDO</strong>. We can discuss which works best for you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Contact</span>
+        <h2 class="section-title">Let's Work<br><span class="accent">Together</span></h2>
+        <p class="section-desc">Got a project in mind? Reach out through Discord or drop me a message.</p>
+      </div>
+
+      <!-- Socials & Info at TOP -->
+      <div class="contact-top">
+        <div class="contact-info-row">
+          <div class="info-card">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.947 2.418-2.157 2.418z"/></svg>
+            </div>
+            <div>
+              <h4>Discord</h4>
+              <p>mushyyyyyy_y</p>
+            </div>
+          </div>
+          <a href="https://discord.gg/hSnGvBH2" target="_blank" rel="noopener" class="info-card info-card-link">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </div>
+            <div>
+              <h4>Discord Server</h4>
+              <p>Join my portfolio server</p>
+            </div>
+          </a>
+          <a href="https://www.youtube.com/@Mushy3D" target="_blank" rel="noopener" class="info-card info-card-link">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.377.504A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.504 9.376.504 9.376.504s7.505 0 9.377-.504a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </div>
+            <div>
+              <h4>YouTube</h4>
+              <p>@Mushy3D</p>
+            </div>
+          </a>
+          <a href="https://x.com/RocksonYeah" target="_blank" rel="noopener" class="info-card info-card-link">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </div>
+            <div>
+              <h4>Twitter / X</h4>
+              <p>@RocksonYeah</p>
+            </div>
+          </a>
+          <div class="info-card">
+            <div class="info-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <h4>Availability</h4>
+              <p>Open for commissions</p>
+            </div>
+          </div>
+        </div>
+        <div class="payment-methods">
+          <h4>Accepted Payment Methods</h4>
+          <div class="payment-icons">
+            <span class="payment-badge">PayPal</span>
+            <span class="payment-badge">Wise</span>
+            <span class="payment-badge">Gcash</span>
+            <span class="payment-badge">BDO</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form + Discord Widget -->
+      <div class="contact-content">
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name <span class="required">*</span></label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="discord">Discord Username <span class="required">*</span></label>
+              <input type="text" id="discord" name="discord" placeholder="e.g. username#0000 or username" required>
+            </div>
+            <div class="form-group">
+              <label for="service">Service <span class="required">*</span></label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected>What do you need?</option>
+                <option value="3D Modeling — Simple">3D Modeling — Simple</option>
+                <option value="3D Modeling — Complex / High Quality">3D Modeling — Complex / High Quality</option>
+                <option value="Building">Building</option>
+                <option value="Rigging — Simple">Rigging — Simple</option>
+                <option value="Rigging — Complex">Rigging — Complex</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Message <span class="required">*</span></label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">
+            <span>Send Message</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+          </button>
+        </form>
+        <!-- Discord Widget -->
+        <div class="discord-widget">
+          <iframe src="https://discord.com/widget?id=972398190382960660&theme=dark" width="100%" height="400" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-text">MUSHY</span><span class="logo-dot">.</span>
+        </div>
+        <p class="footer-text">3D Artist & Modeler — Crafting digital worlds since 2020</p>
+        <div class="footer-socials">
+          <a href="https://www.youtube.com/@Mushy3D" target="_blank" rel="noopener" aria-label="YouTube" class="social-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.377.504A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.504 9.376.504 9.376.504s7.505 0 9.377-.504a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://discord.gg/hSnGvBH2" target="_blank" rel="noopener" aria-label="Discord" class="social-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.373-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.947 2.418-2.157 2.418z"/></svg>
+          </a>
+          <a href="https://x.com/RocksonYeah" target="_blank" rel="noopener" aria-label="Twitter / X" class="social-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+        <div class="footer-divider"></div>
+        <p class="footer-copy">&copy; 2026 Mushy. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
